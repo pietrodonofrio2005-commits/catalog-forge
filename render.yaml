@@ -9,17 +9,17 @@ services:
     startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: MONGO_URL
-        sync: false          # incolla qui la connection string di MongoDB Atlas
+        sync: mongodb+srv://pietrodonofrio2005_db_user:29082005@cluster0.mdtsk81.mongodb.net/?appName=Cluster0          # incolla qui la connection string di MongoDB Atlas
       - key: DB_NAME
         value: catalog_forge
       - key: JWT_SECRET
         generateValue: true  # Render genera automaticamente un valore sicuro
       - key: EMERGENT_LLM_KEY
-        sync: false          # la tua chiave Emergent, per lo storage immagini
+        sync: sk-emergent-67f6d81B819D52e634          # la tua chiave Emergent, per lo storage immagini
       - key: ADMIN_EMAIL
         value: admin@catalog.com
       - key: ADMIN_PASSWORD
-        sync: false          # scegli una password admin
+        sync: 29082005          # scegli una password admin
       - key: COOKIE_SECURE
         value: "true"
       - key: COOKIE_SAMESITE
