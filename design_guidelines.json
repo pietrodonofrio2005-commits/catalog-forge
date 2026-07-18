@@ -1,0 +1,83 @@
+{
+  "theme": "light",
+  "typography": {
+    "headings": "Cabinet Grotesk",
+    "body": "IBM Plex Sans",
+    "notes": "Do not use Inter, Roboto, or Open Sans for headings. Use tight letter spacing (tracking-tight) for headings to maintain a modern, editorial aesthetic suitable for a catalog tool."
+  },
+  "colors": {
+    "archetype": "Swiss & High-Contrast",
+    "background": "#FAFAFA",
+    "surface": "#FFFFFF",
+    "primary": "#0047AB",
+    "primary_hover": "#003380",
+    "text_primary": "#0A0A0A",
+    "text_secondary": "#52525B",
+    "border": "#E4E4E7",
+    "success": "#16A34A",
+    "danger": "#DC2626",
+    "notes": "Minimal gradients. Rely on sharp contrast and monochrome bases. Do not use teal green/blue. Forbidden color: #7351B7."
+  },
+  "visual_enhancers": {
+    "shadows": "Crisp edges with minimal blur. Use ambient shadows with 1px solid strokes for container definition.",
+    "borders": "1px solid #E4E4E7. Nested radii logic (e.g., parent 12px, child 8px).",
+    "surfaces": "Solid Backgrounds for cards. Avoid generic glassmorphism unless on a sticky header navigating over complex content.",
+    "glassmorphism": "Only for floating sticky headers (backdrop-blur-xl bg-white/70 with 1px bottom border)."
+  },
+  "grids_layouts": {
+    "dashboard_shell": "Collapsible left-sidebar navigation for module switching (Products, Catalog Builder, History).",
+    "product_management": "High-density split layout. Left sidebar for Category/Subcategory filters, right side for a dense product data table or grid.",
+    "catalog_creator": "Split pane F-Pattern layout. Left side: Progressive disclosure settings (Tabs/Accordions for Layout, Grid rows/cols, Styling, Metadata). Right side: Canvas/Live Preview of the catalog.",
+    "spacing": "Generous spacing philosophy (p-6, p-8) for forms; dense spacing (p-2, p-4) for data tables and catalog grid previews."
+  },
+  "components": {
+    "buttons": "Slightly rounded (rounded-md) or sharp rectangular with clear interaction states (hover:bg-primary_hover hover:text-white).",
+    "forms": "Shadcn components heavily utilized. Left-aligned inputs, select menus for categories, and switch toggles for boolean states.",
+    "tables": "Shadcn tables with sticky headers. Rows should have hover states. Actions (Edit/Delete) clearly visible or accessible via a dropdown menu.",
+    "modals": "Shadcn dialogs with solid backgrounds, used for quick product edits or confirmation dialogs."
+  },
+  "motion": {
+    "hover": "Subtle -translate-y-1 or border color transitions on cards.",
+    "page_transitions": "Framer motion for module loads (fade-in).",
+    "lists": "Staggered entrance animations for product grids and catalog history items."
+  },
+  "accessibility": {
+    "contrast": "Ensure APCA minimums (or WCAG AA). Focus states must have high contrast rings.",
+    "testing": "All interactive and key informational elements MUST include a data-testid attribute in kebab-case."
+  },
+  "media": {
+    "icons": "lucide-react"
+  },
+  "3d_libraries": {
+    "decision": "Not required. Focus on highly performant 2D canvas/CSS grid logic for the catalog live preview."
+  },
+  "image_urls": [
+    {
+      "url": "https://images.unsplash.com/photo-1603808033192-082d6919d3e1",
+      "category": "product_dummy",
+      "description": "Shoes product image for catalog and product lists dummy data"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1561715276-a2d087060f1d",
+      "category": "product_dummy",
+      "description": "Bag product image for catalog and product lists dummy data"
+    },
+    {
+      "url": "https://images.unsplash.com/photo-1546868871-7041f2a55e12",
+      "category": "product_dummy",
+      "description": "Watch product image for catalog and product lists dummy data"
+    }
+  ],
+  "instructions_to_main_agent": [
+    "Build a robust dashboard layout with a collapsible sidebar for navigation.",
+    "Implement the Product Upload page with a comprehensive Shadcn form.",
+    "Implement the Product Management page with a left-side filter sidebar and a data table on the right.",
+    "For the Catalog Creation page, use a split-pane layout: a detailed settings panel on the left (using Tabs or Accordion for settings: Layout, Grid rows/cols, Colors, Background) and a live preview area on the right.",
+    "Ensure the Catalog Preview dynamically updates using CSS grid/flexbox based on user settings.",
+    "Implement the Catalog History page as a clean list or grid of previously generated catalogs.",
+    "Use sonner for all toast notifications (success/error states).",
+    "Ensure all interactive elements have data-testid attributes.",
+    "Never use placeholder image services. Use the provided image URLs."
+  ],
+  "UNIVERSAL_GUIDELINES_FOR_MAIN_AGENT": "Do not apply universal transitions (`transition: all`). Do not center align the app container. Create depth with layered design elements. Use crisp edges and accessible contrasts. Do not use generic centered layouts or simplistic gradients."
+}
