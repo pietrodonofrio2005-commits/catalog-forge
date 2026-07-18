@@ -1,0 +1,22 @@
+{
+  "summary": "Tested per-product IVA price_label field (backend round-trip) and frontend IVA checkboxes + Ritaglia crop button in both /app/upload and /app/products edit dialog, plus catalog preview lowercase label rendering. All backend + frontend flows working correctly.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_price_label.py",
+    "/app/test_reports/pytest/pytest_price_label.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "CatalogCreate.jsx is very large (>1350 lines) - consider splitting ProductCard renderer into its own module for maintainability.",
+    "In edit dialog (ProductManage.jsx), 'crop-image-btn'/'edit-image-crop' logic correctly hides when no image_path; verified with product having no image."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@catalog.com / admin123",
+  "seed_data_creation": "Created test products via UI: TEST_FE_pl_plus (edited to price_label=included). Backend pytest creates/cleans TEST_pl_* products.",
+  "retest_needed": false,
+  "should_main_agent_self_test": true,
+  "context_for_next_testing_agent": "Backend: pytest test_price_label.py covers create with '', 'included', 'plus', PUT round-trip, and default when field missing (5/5 passed). Frontend UI verified: (1) /app/upload IVA radio group mutex works, POST body carries price_label; (2) crop-image-btn hidden pre-upload (correct); (3) /app/products edit dialog preselects saved price_label, mutex works, PUT persists (verified via /api/products fetch after save); (4) catalog preview /app/catalog renders 'iva inclusa' and '+ iva' spans based on per-product label. edit-image-crop was not tested with an actual image present because existing test products had no image; code inspection confirms it's rendered under `{editing.image_path && ...}` block with data-testid='edit-image-crop'.",
+  "rca of the issue": "N/A - no issues found."
+}

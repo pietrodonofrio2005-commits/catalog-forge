@@ -1,0 +1,23 @@
+{
+  "summary": "Tested VAT rate feature (vat_rate field) on both backend and frontend. All 4 backend pytest cases passed and all UI flows (upload conditional row, edit dialog prefill/toggle, catalog preview rendering) work as specified.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "test_report_links": [
+    "/app/backend/tests/test_vat_rate.py",
+    "/app/test_reports/pytest/vat_rate_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "ProductManage edit dialog: when '+ iva' is toggled ON while editing, vat_rate stays at previous value (correct). When toggled OFF, vat_rate is cleared to null on the fly (line 316) — good, matches requirement.",
+    "CatalogCreate.jsx (1621 lines) exceeds 700-line guideline; consider splitting into subcomponents (ProductCard, sidebar tabs).",
+    "Dialog components missing aria-describedby (console warnings) — accessibility improvement only."
+  ],
+  "updated_files": ["/app/backend/tests/test_vat_rate.py"],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@catalog.com / admin123 (from /app/memory/test_credentials.md)",
+  "seed_data_creation": "Created & cleaned up TEST_VAT_* products via API during automated tests.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Feature verified: (1) POST/PUT/GET /api/products supports vat_rate float/null; (2) ProductUpload.jsx conditionally renders [data-testid=vat-rate-row] when checkbox-vat-plus is checked; (3) ProductManage edit dialog prefills edit-product-vat-rate from saved value, toggling edit-vat-plus off hides edit-vat-rate-row and clears vat_rate to null on save; (4) CatalogCreate preview and PublicCatalog render '+ iva ({rate}%)' with parentheses when rate is set, and '+ iva' alone when not set; global settings.vatRate fallback works when product has no per-product label.",
+  "rca of the issue": "N/A — no bugs found."
+}

@@ -1,0 +1,31 @@
+{
+  "summary": "Iteration 6: Verified new catalog customization features (SKU/Quantity round-trip on Product upload/edit/bulk, Pagine tab with drag-order + toggles + about/contact fields, Contenuto SKU/Quantity switches, TOC/Chi Siamo/Contatti sections in preview + public catalog view). Backend 6/6 pytest passed. Frontend E2E flows for upload, edit dialog, catalog Pagine tab, save/persist, and public share view all passed.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Public catalog TOC", "issues": ["TOC entries use sequential 01..05 numbering (section index) rather than actual page numbers. This is acceptable for the scrolling web view, but differs from the paginated preview inside CatalogCreate which uses true page numbers (idx+1). Consider clarifying/aligning behavior for consistency."]},
+      {"screen": "Edit product dialog", "issues": ["React Radix a11y warning: DialogContent missing Description / aria-describedby (non-blocking, still present from prior iteration)."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_product_quantity.py",
+    "/app/test_reports/pytest/iter6.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "CatalogCreate.jsx is 1130 lines — approaching maintainability limit; consider splitting Pagine/Contenuto/Layout tabs into subcomponents.",
+    "Drag&drop reorder uses native HTML5 drag events; robust but hard to test with Playwright without dispatch_event. Verified reorder logic works via pageOrder round-trip (settings persisted correctly).",
+    "PublicCatalog TOC numbering differs from CatalogCreate preview TOC (section index vs. page number); align if PDF export must match public view.",
+    "Bulk import ProductsImport.jsx maps aliases quantity/quantita/quantità/qty/stock/giacenza correctly; quantity parsed as int or null."
+  ],
+  "updated_files": ["/app/backend/tests/test_product_quantity.py"],
+  "success_rate": {"backend": "100% (6/6)", "frontend": "100% (all critical flows)"},
+  "test_credentials": "admin@catalog.com / admin123",
+  "seed_data_creation": "Created and left in DB for potential inspection: TEST_UI_QTY_1419580 product and TEST_UI_CAT_PAGES catalog (shared token f2jit58Z_4hyTXcYY6vZmA). TEST_QTY_* / TEST_BULK_Q* pytest data auto-cleaned.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 6 verified: (1) Backend: quantity + sku persist on POST/GET/PUT /api/products, bulk import accepts quantity, catalog settings roundtrip pageOrder/aboutEnabled/contactEnabled/showSku/showQuantity etc.; (2) ProductUpload: input-quantity present with label 'Quantità in stock', SKU label 'SKU / Codice'; (3) ProductManage edit dialog: edit-sku and edit-quantity present, editable, save persists; (4) CatalogCreate: tab-pages present with page-order-{cover|index|about|products|contact} items, toggle-page-{key} for non-products (products locked, no toggle), index-title / about-* / contact-* fields all present; Contenuto tab has switch-sku and switch-quantity; (5) Preview shows Chi Siamo with description, Contatti with email/phone/address, product cards render 'Cod:' and 'Q.tà:' when switches ON; (6) Save persists to backend, catalog reload restores all new settings; (7) Public /c/{token} renders Indice with 01..05 TOC entries, Chi Siamo, product groups, Contatti sections in the pageOrder order.",
+  "rca of the issue": "No issues to RCA."
+}

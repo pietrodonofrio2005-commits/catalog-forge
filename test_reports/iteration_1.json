@@ -1,0 +1,42 @@
+{
+  "summary": "Backend and frontend smoke tested for CatalogForge (Italian). Auth (login/register/me/logout), Product CRUD, Catalog CRUD, upload, and full frontend nav flow (login → upload → products → catalog → history) all working. Product created via UI shows in grid; catalog listed in history.",
+  "tested_scope": ["backend", "frontend", "auth", "integration"],
+  "passed": [
+    "POST /api/auth/login admin -> 200 sets httpOnly cookies",
+    "GET /api/auth/me -> 200 returns admin user",
+    "POST /api/auth/register new user -> 200 with cookies + /me works",
+    "POST /api/auth/logout -> 200 sends expiring Set-Cookie headers (verified in response)",
+    "GET /api/products (no cookie) -> 401 Not authenticated",
+    "POST/GET/PUT/DELETE /api/products all 200 (auth'd)",
+    "POST /api/upload multipart -> returns {path, size}",
+    "POST/GET /api/catalogs -> 200",
+    "GET /api/products/categories -> 200 (empty dict when no products)",
+    "Frontend login redirects to /app/products",
+    "Sidebar nav-upload/products/catalog/history all render and are clickable",
+    "Product upload form submits and toast 'Prodotto salvato' shown",
+    "Products grid renders 1 item after creation",
+    "Catalog page shows catalog-settings, catalog-name, tab-layout/style/content, slider-columns/rows, export-pdf/png/html, save-catalog",
+    "History page shows saved catalog in catalog-history-grid"
+  ],
+  "failed": [
+    {
+      "area": "backend",
+      "issue": "PUT /api/products/{id} requires full body (name required); partial update payload {price:39.99} returns 422",
+      "evidence": "curl PUT with only price -> 422 missing 'name'",
+      "priority": "LOW"
+    },
+    {
+      "area": "backend",
+      "issue": "POST /api/products silently drops 'type' field; response stores product_type as empty string. Frontend field name may need to match backend model (product_type).",
+      "evidence": "Sent {\"type\":\"clothing\"} -> response product_type=''",
+      "priority": "LOW"
+    }
+  ],
+  "action_items": [
+    "Optional: verify frontend PUT sends full product payload (it appears to since edit worked end-to-end).",
+    "Optional: align product 'type' field name — UI sends 'type' from input-type; backend expects 'product_type'. May cause type to be silently lost."
+  ],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "retest_needed": false,
+  "full_testing_deferred": true
+}
