@@ -34,7 +34,6 @@ services:
   - type: web
     name: catalog-forge-frontend
     runtime: static
-    plan: free
     rootDir: frontend
     buildCommand: yarn install && yarn build
     staticPublishPath: build
